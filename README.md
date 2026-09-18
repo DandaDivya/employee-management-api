@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Employee Management API
 
 A RESTful backend application built with **Java and Spring Boot** for managing employees with secure authentication and role-based authorization.
@@ -85,3 +86,7 @@ The application provides REST endpoints for:
 * Employee retrieval
 * Employee update
 * Employee deletion
+=======
+# employee-management-api
+RESTful Employee Management API built with Java, Spring Boot, Spring Data JPA and MySQL
+>>>>>>> bcef67a (Initial commit)
