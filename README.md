@@ -1,17 +1,21 @@
-<<<<<<< HEAD
 # Employee Management API
 
-A RESTful backend application built with **Java and Spring Boot** for managing employees with secure authentication and role-based authorization.
+A RESTful backend application built with **Java and Spring Boot** for managing employees with secure authentication, role-based authorization, and MySQL persistence.
+
+The application is containerized using **Docker** and deployed to a local **Kubernetes cluster using Rancher Desktop**.
 
 ## Tech Stack
 
-* Java
+* Java 22
 * Spring Boot
 * Spring Security
 * JWT Authentication
 * Spring Data JPA / Hibernate
 * MySQL
 * Maven
+* Docker
+* Kubernetes
+* Rancher Desktop
 * JUnit / Mockito
 
 ## Features
@@ -21,9 +25,13 @@ A RESTful backend application built with **Java and Spring Boot** for managing e
 * JWT-based authentication
 * Role-based authorization
 * MySQL database integration
+* Spring Data JPA / Hibernate
 * Global exception handling
-* Unit and integration testing
+* Input validation
 * RESTful API architecture
+* Docker containerization
+* Kubernetes deployment
+* Kubernetes Secrets for sensitive configuration
 
 ## Project Structure
 
@@ -38,7 +46,28 @@ src/main/java/com/divya/employeemanagement
 └── service
 ```
 
-## How to Run
+## Architecture
+
+```text
+Client / Postman
+       |
+       v
+Kubernetes NodePort
+       |
+       v
+Kubernetes Service
+       |
+       v
+Employee API Pod
+       |
+       v
+Spring Boot Application
+       |
+       v
+MySQL Database
+```
+
+## Running Locally
 
 ### 1. Clone the repository
 
@@ -49,11 +78,15 @@ cd employee-management-api
 
 ### 2. Configure MySQL
 
-Create a MySQL database and update the database configuration in:
+Create a MySQL database named:
 
 ```text
-src/main/resources/application.properties
+employee_db
 ```
+
+Configure the required database and JWT environment variables.
+
+Do not commit passwords, JWT secrets, or other sensitive credentials to GitHub.
 
 ### 3. Run the application
 
@@ -69,6 +102,50 @@ The application runs on:
 http://localhost:8080
 ```
 
+## Docker
+
+The application is containerized using Docker.
+
+Build the Docker image:
+
+```bash
+docker build -t employee-management-api:1.0 .
+```
+
+The application runs inside the Docker container on port `8080`.
+
+## Kubernetes Deployment
+
+The Docker image is deployed to a local Kubernetes cluster using Rancher Desktop.
+
+Kubernetes resources used:
+
+* Deployment
+* Pod
+* NodePort Service
+* Kubernetes Secret
+
+The application is exposed through a NodePort:
+
+```text
+http://localhost:30089
+```
+
+Sensitive configuration such as the database password and JWT secret is provided through Kubernetes Secrets rather than being stored directly in the Deployment YAML.
+
+## API
+
+The application provides REST endpoints for:
+
+* User registration
+* User login
+* Employee creation
+* Employee retrieval
+* Employee update
+* Employee deletion
+
+Protected employee endpoints require JWT authentication.
+
 ## Testing
 
 Run the test suite using:
@@ -77,16 +154,11 @@ Run the test suite using:
 mvn test
 ```
 
-## API
+API endpoints can be tested using Postman with JWT authentication.
 
-The application provides REST endpoints for:
+## Future Improvements
 
-* User authentication
-* Employee creation
-* Employee retrieval
-* Employee update
-* Employee deletion
-=======
-# employee-management-api
-RESTful Employee Management API built with Java, Spring Boot, Spring Data JPA and MySQL
->>>>>>> bcef67a (Initial commit)
+* Deploy to a cloud Kubernetes environment
+* Add API documentation using Swagger/OpenAPI
+* Add CI/CD pipeline
+* Add frontend application
